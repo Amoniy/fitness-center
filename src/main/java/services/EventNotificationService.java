@@ -24,4 +24,8 @@ public class EventNotificationService {
     public Event pop() {
         return newEventsQueue.poll();
     }
+
+    public Event peek() {
+        return newEventsQueue.peek();
+    }
 }

@@ -40,7 +40,9 @@ public class ReportServer {
 
     private void updateEvents() {
         while (notificationService.getSize() > 0) {
-            events.add(notificationService.pop());
+            Event event = notificationService.peek();
+            events.add(event);
+            notificationService.pop();
         }
     }
 
@@ -54,7 +56,8 @@ public class ReportServer {
                 }));
         StringBuilder stringBuilder = new StringBuilder();
         eventsByDay.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .forEachOrdered(entry -> stringBuilder.append(entry.getKey()).append(": ").append(entry.getValue().size()).append("\n"));
+                .forEachOrdered(entry -> stringBuilder.append(entry.getKey()).append(": ")
+                        .append(entry.getValue().stream().distinct().count()).append("\n"));
         return stringBuilder.toString();
     }
 

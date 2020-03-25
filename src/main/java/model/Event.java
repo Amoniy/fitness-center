@@ -34,6 +34,15 @@ public class Event {
         return type;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Event other = (Event) obj;
+        return this.ticketId == other.ticketId && this.time.equals(other.time) && this.type == other.type;
+    }
+
     public Document toDocument() {
         return new Document("ticketId", ticketId).append("time", time).append("type", type.toString());
     }
